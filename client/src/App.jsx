@@ -12,8 +12,10 @@ function App() {
   });
   const [price, setPrice] = useState(null);
 
+  const API = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
-    axios.get("http://localhost:5000/locations")
+    axios.get(`${API}/locations`)
       .then(res => setLocations(res.data.locations))
       .catch(err => console.error("Error loading locations", err));
   }, []);
@@ -23,7 +25,7 @@ function App() {
   };
 
   const handlePredict = () => {
-    axios.post("http://localhost:5000/predict", form)
+    axios.post(`${API}/predict`, form)
       .then(res => setPrice(res.data.estimated_price))
       .catch(err => {
         console.error(err);
